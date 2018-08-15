@@ -2,3 +2,5 @@
 /.recommenders/
 /.project/
 /RemoteSystemTempFiles/
+.class
+.project

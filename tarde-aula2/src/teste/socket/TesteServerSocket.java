@@ -22,10 +22,16 @@ public class TesteServerSocket {
 				while (inputKeyboard.available() > 0) { 
 					int b = inputKeyboard.read();
 					out.write(b);
+					if (b == 27) { 
+						fim = true;
+					}
 					out.flush();
 				}
 				while (in.available() > 0) { 
 					int b = in.read();
+					if (b == 27) { 
+						fim = true;
+					}
 					System.out.print((char)b);
 				}
 			}
