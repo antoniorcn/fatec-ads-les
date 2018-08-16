@@ -18,7 +18,7 @@ public class TesteSocketServer {
 			InputStream in = cli.getInputStream();
 			InputStream inputkbd = System.in;
 			out.write("Bem vindo ao servidor\n\r".getBytes());
-			out.flush();
+			out.flush();			
 			boolean fim = false;
 			while( !fim ) {
 				while (in.available() > 0) { 
