@@ -10,10 +10,27 @@
 	<h1> Pagina de Teste em JSP </h1>
 	<h2> Este código esta em JSP </h2>
 	
-	<jsp:forward page="/Tabuada">
-		<jsp:param name="NUMERO" value="9"/>
-	</jsp:forward>
-
+	<form action="./Tabuada">
+	
+		<h3>Digite um numero para calcular a tabuada</h3>
+		<!-- <input type="text" name="NUMERO"/> -->
+		<select name="NUMERO">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+		</select>
+		
+		<input type="submit" value="Calcular">
+	
+	</form>
+	
 	<h2> Fim da Tabuada </h2>
 </body>
 </html>
