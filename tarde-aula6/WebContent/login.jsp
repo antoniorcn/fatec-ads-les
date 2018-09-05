@@ -8,7 +8,14 @@
 </head>
 <body>
 	<h2>Login no sistema</h2>
-	<form action="./authenticator">
+	<%
+		String msg = (String)session.getAttribute("MENSAGEM");
+		if (msg != null) { 
+	%>
+		<h3 style="color:red;"><%=msg%></h3>
+	<% } 
+	   session.setAttribute("MENSAGEM", null);%>
+	<form action="./authenticator" method="post">
 		<table>
 			<tr>
 				<td>Usuario:</td>
@@ -16,7 +23,7 @@
 			</tr>
 			<tr>
 				<td>Senha:</td>
-				<td><input type="text" name="TXTPASSWORD"/></td>
+				<td><input type="password" name="TXTPASSWORD"/></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Logar"/></td>

@@ -5,20 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pagina principal</title>
+<title>Pagina administrador</title>
 </head>
 <body>
 	<% UserInfo userInfo = 
 			(UserInfo)session.getAttribute("LOGADO"); 
-		if (userInfo != null && userInfo.isLogado()) {
+		if (userInfo != null 
+			&& userInfo.isLogado()
+			&& "admin".equals(userInfo.getProfile())) {
 	%>
-			<h3>Conteúdo da pagina principal</h3>
-			<h4>Parabéns <%=userInfo.getNome()%> você está logado</h4>
+			<h3>Conteúdo da pagina de administrador</h3>
+			<h4>Parabéns <%=userInfo.getNome()%> você está acessando a pagina de administração do sistema</h4>
 	<%  } else { %>
-			<h3>Você precisa fazer o login</h3>
+			<h3>Apenas o administrador pode acessar esta página</h3>
 			<h4>Clique <a href="./login.jsp">aqui</a> para acessar acessar a página de login</h4>
 	<% } %>
-	
-
 </body>
 </html>
