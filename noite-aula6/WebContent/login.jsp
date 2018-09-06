@@ -7,7 +7,15 @@
 <title>Pagina de Login</title>
 </head>
 <body>
-	<form action="./Authenticator">
+	<h2>Login do sistema</h2>
+	<%
+		String msg = (String)session.getAttribute("MENSAGEM");
+		if (msg != null) {
+			session.setAttribute("MENSAGEM", null);
+	%>
+			<h3><script>alert("<%=msg%>");</script></h3>
+	<%  } %>
+	<form action="./Authenticator" method="post">
 		<table>
 			<tr>
 				<td>Usuario : </td>

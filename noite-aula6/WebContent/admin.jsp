@@ -11,12 +11,14 @@
 	<%
 		UserInfo user = (UserInfo)session.getAttribute("LOGADO");
 	
-		if (user != null && user.isLogado()) {
+		if (user != null 
+				&& user.isLogado() 
+				&& "admin".equals(user.getProfile())) {
 	%>
-			<h2>Bem vindo <%=user.getNome()%> a pagina principal</h2>
+			<h2>Bem vindo <%=user.getNome()%> a pagina de administração do sistema</h2>
 			<h3>Você conseguiu se logar com sucesso e pode acessar a página</h3>
 	<%  } else {  %>
-			<h2>Você precisa se logar para acessar o sistema</h2>
+			<h2>Apenas o administrador pode acessar esta pagina</h2>
 			<h3><a href="./login.jsp">Clique aqui</a> e acesse a página de login</h3>
 	<%  } %>
 	
