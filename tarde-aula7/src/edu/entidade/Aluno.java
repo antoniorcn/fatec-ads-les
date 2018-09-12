@@ -45,4 +45,15 @@ public class Aluno implements Serializable {
 	public void setGenero(boolean genero) {
 		this.genero = genero;
 	}
+	
+	@Override
+	public String toString() { 
+		StringBuffer info = new StringBuffer();
+		info.append(this.getId());
+		info.append(":");
+		info.append(this.getNome());
+		info.append(" - ");
+		info.append(this.getRa());
+		return info.toString();
+	}
 }

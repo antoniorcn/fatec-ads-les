@@ -11,7 +11,7 @@
 <body>
 
 	<h1>Gestão de Alunos</h1>
-	<form>
+	<form action="./AlunoController" method="post">
 		<div class="container">
 			<div class="form-group">
 				<label for="alunoId">Id</label>
