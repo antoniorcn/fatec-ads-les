@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.dao.AlunoDAO;
 import edu.dao.AlunoDAOImpl;
@@ -45,6 +46,12 @@ public class AlunoController extends HttpServlet {
 		} catch (GenericDAOException e) {
 			e.printStackTrace();
 		}
+		
+		String msg = "Aluno adicionado com sucesso";
+		HttpSession session = request.getSession();
+		session.setAttribute("MENSAGEM", msg);
+		
+		response.sendRedirect("./alunos.jsp");
 	}
 
 }

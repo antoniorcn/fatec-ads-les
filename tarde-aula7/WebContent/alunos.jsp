@@ -9,8 +9,15 @@
 	<title>Gestão de alunos</title>
 </head>
 <body>
-
 	<h1>Gestão de Alunos</h1>
+	
+	<%
+		String msg = (String) session.getAttribute("MENSAGEM");
+		if (msg != null) { 
+			session.setAttribute("MENSAGEM", null);
+	%>
+			<h3 class="alert alert-danger"><%=msg%></h3>
+	<%  } %>
 	<form action="./AlunoController" method="post">
 		<div class="container">
 			<div class="form-group">
