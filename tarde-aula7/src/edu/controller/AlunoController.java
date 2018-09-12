@@ -1,6 +1,7 @@
 package edu.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,28 +30,36 @@ public class AlunoController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Aluno a = new Aluno();
-		a.setNome(request.getParameter("alunoNome"));
-		a.setRa(request.getParameter("alunoRA"));
-		a.setCidade(request.getParameter("alunoCidade"));
-//		String genero = request.getParameter("alunoGenero");
-//		if ("masc".equals(genero)) { 
-//			a.setGenero(true);
-//		} else { 
-//			a.setGenero(false);
-//		}
-		a.setGenero("masc".equals(request.getParameter("alunoGenero")));
+		String cmd = request.getParameter("cmd");
+		String msg = null;
 		AlunoDAO aDao = new AlunoDAOImpl();
-		try {
-			aDao.adicionar(a);
-		} catch (GenericDAOException e) {
-			e.printStackTrace();
-		}
-		
-		String msg = "Aluno adicionado com sucesso";
 		HttpSession session = request.getSession();
-		session.setAttribute("MENSAGEM", msg);
-		
+		if ("adicionar".equals(cmd)) {
+			Aluno a = new Aluno();
+			a.setNome(request.getParameter("alunoNome"));
+			a.setRa(request.getParameter("alunoRA"));
+			a.setCidade(request.getParameter("alunoCidade"));
+			a.setGenero("masc".equals(request.getParameter("alunoGenero")));
+			try {
+				aDao.adicionar(a);
+				msg = "Aluno adicionado com sucesso";
+			} catch (GenericDAOException e) {
+				e.printStackTrace();
+			}
+			
+		} else if ("pesquisar".equals(cmd)) {
+			try {
+				List<Aluno> lista = aDao.pesquisarPorNome(
+					request.getParameter("alunoNome"));
+				session.setAttribute("ALUNOS", lista);
+				msg = "Foram encontrados " + 
+							lista.size() + " alunos";
+			} catch (GenericDAOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		session.setAttribute("MENSAGEM", msg);		
 		response.sendRedirect("./alunos.jsp");
 	}
 

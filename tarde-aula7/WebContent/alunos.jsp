@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.List, edu.entidade.Aluno" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,6 +14,7 @@
 	
 	<%
 		String msg = (String) session.getAttribute("MENSAGEM");
+		List<Aluno> alunos = (List<Aluno>) session.getAttribute("ALUNOS");
 		if (msg != null) { 
 			session.setAttribute("MENSAGEM", null);
 	%>
@@ -52,9 +54,53 @@
 			    <label class="form-check-label" for="alunoFeminino">Feminino</label>
 			</div>	
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Adicionar</button>
+				<button type="submit" class="btn btn-primary" name="cmd" value="adicionar">Adicionar</button>
+				<button type="submit" class="btn btn-primary" name="cmd" value="pesquisar">Pesquisar</button>
 			</div>
 		</div>
+		<%if (alunos != null && alunos.size() > 0) { %>
+<%-- 		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<th>Id</th>
+					<th>RA</th>
+					<th>Nome</th>
+					<th>Cidade</th>
+					<th>Genero</th>
+				</thead>
+				<tbody>
+					<% for (Aluno a : alunos) { %>
+					<tr>
+						<td><%=a.getId()%></td>
+						<td><%=a.getRa()%></td>
+						<td><%=a.getNome()%></td>
+						<td><%=a.getCidade()%></td>
+						<td><%=a.isGenero() ? "Masculino" : "Feminino"%></td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div> --%>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col col-lg-1">Id</div>
+				<div class="col col-lg-2">RA</div>
+				<div class="col col-lg-3">Nome</div>
+				<div class="col col-lg-3">Cidade</div>
+				<div class="col col-lg-3">Genero</div>
+			</div>
+			<% for (Aluno a : alunos) { %>
+			<div class="row">
+				<div class="col col-lg-1"><%=a.getId()%></div>
+				<div class="col col-lg-2"><%=a.getRa()%></div>
+				<div class="col col-lg-3"><%=a.getNome()%></div>
+				<div class="col col-lg-3"><%=a.getCidade()%></div>
+				<div class="col col-lg-3"><%=a.isGenero() ? "Masculino" : "Feminino"%></div>
+			</div>
+			<% } %>
+		</div>
+		<%}%>
 	</form>
 </body>
 </html>
