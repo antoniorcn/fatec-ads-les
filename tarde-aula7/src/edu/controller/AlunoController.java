@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.dao.AlunoDAO;
+import edu.dao.AlunoDAOImpl;
+import edu.dao.GenericDAOException;
 import edu.entidade.Aluno;
 
 @WebServlet("/AlunoController")
@@ -36,7 +39,12 @@ public class AlunoController extends HttpServlet {
 //			a.setGenero(false);
 //		}
 		a.setGenero("masc".equals(request.getParameter("alunoGenero")));
-		System.out.println(a);
+		AlunoDAO aDao = new AlunoDAOImpl();
+		try {
+			aDao.adicionar(a);
+		} catch (GenericDAOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
