@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="edu.entidade.Sorvete, java.util.List"%>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,7 +12,9 @@
 <body>
 	<h2>Gestão de Sorvetes</h2>
 	
-	<form>
+	<% List<Sorvete> lista = (List<Sorvete>)application.getAttribute("LISTA"); %>
+	
+	<form action="./SorveteController" method="post">
 		<div class="container">
 			<div class="form-group">
     			<label for="txtId">Id</label>
@@ -49,6 +52,21 @@
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">Adicionar</button>
 			</div>																		
+		</div>
+		<div class="container">
+			<table class="table table-striped">
+				<tbody>
+					<% for (Sorvete s : lista) { %>
+					<tr>
+						<td><%=s.getId()%></td>
+						<td><%=s.getSabor()%></td>
+						<td><%=s.getTipo()%></td>
+						<td><%=s.getPreco()%></td>
+						<td><%=s.getCobertura()%></td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
 		</div>
 	</form>
 </body>
