@@ -1,8 +1,6 @@
 package edu.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.dao.GenericDAOException;
+import edu.dao.SorveteDAO;
+import edu.dao.SorveteDAOImpl;
 import edu.entidade.Sorvete;
 @WebServlet("/SorveteController")
 public class SorveteController extends HttpServlet {
@@ -32,14 +33,20 @@ public class SorveteController extends HttpServlet {
 		s.setCobertura(request.getParameter("txtCobertura"));
 		
 		
-		List<Sorvete> lista = (List<Sorvete>) getServletContext().getAttribute("LISTA");
-		if (lista != null) { 
-			lista.add( s );
-			System.out.println( lista.size() );
-		} else { 
-			lista = new Vector<Sorvete>();
-			getServletContext().setAttribute("LISTA", lista);
+		try {
+			SorveteDAO sDao = new SorveteDAOImpl();
+			sDao.adicionar( s );
+		} catch (GenericDAOException e) {
+			e.printStackTrace();
 		}
+		
+//		List<Sorvete> lista = (List<Sorvete>) getServletContext().getAttribute("LISTA");
+//		if (lista == null) { 
+//			lista = new Vector<Sorvete>();
+//			getServletContext().setAttribute("LISTA", lista);
+//		}
+//		lista.add( s );
+//		System.out.println( lista.size() );
 	}
 
 }
