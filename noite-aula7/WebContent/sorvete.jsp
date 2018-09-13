@@ -12,11 +12,19 @@
 <body>
 	<h2>Gestão de Sorvetes</h2>
 	
-	<% List<Sorvete> lista = (List<Sorvete>)application.getAttribute("LISTA");
+	<%  String msg = (String)session.getAttribute("MENSAGEM");
+		List<Sorvete> lista = (List<Sorvete>)session.getAttribute("LISTA");
 	   if (lista == null) { 
-	   		lista = new ArrayList<Sorvete>();
+	   	   lista = new ArrayList<Sorvete>();
+	   } else { 
+		   session.setAttribute("LISTA", null);
 	   }
+	   
+	   if (msg != null) {
+		   session.setAttribute("MENSAGEM", null);
 	%>
+			<h3 class="alert alert-danger"><%=msg%></h3>
+	<% } %>
 	
 	
 	<form action="./SorveteController" method="post">
@@ -55,7 +63,8 @@
   				<label class="form-check-label" for="txtCobertura">Caramelo</label>
 			</div>	
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Adicionar</button>
+				<button type="submit" class="btn btn-primary" name="cmd" value="adicionar">Adicionar</button>
+				<button type="submit" class="btn btn-primary" name="cmd" value="pesquisar">Pesquisar</button>
 			</div>																		
 		</div>
 		<div class="container">
