@@ -101,4 +101,22 @@ public class AlunoDAOImpl implements AlunoDAO {
 		return a;
 	}
 
+	@Override
+	public void salvar(long id, Aluno a) throws GenericDAOException {
+		String sql = "UPDATE aluno "
+				+ "SET ra = ?, nome = ?, cidade = ?, genero = ? WHERE id = ?";
+
+		try {
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setString(1, a.getRa());
+			pstm.setString(2, a.getNome());
+			pstm.setString(3, a.getCidade());
+			pstm.setBoolean(4, a.isGenero());
+			pstm.setLong(5, id);
+			pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new GenericDAOException( e );
+		}		
+	}
+
 }

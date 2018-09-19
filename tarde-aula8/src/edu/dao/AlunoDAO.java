@@ -9,4 +9,5 @@ public interface AlunoDAO {
 	List<Aluno> pesquisarPorNome(String nome) throws GenericDAOException;
 	void remover(long id) throws GenericDAOException;
 	Aluno pesquisarPorId(long id) throws GenericDAOException;
+	void salvar(long id, Aluno a) throws GenericDAOException;
 }

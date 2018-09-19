@@ -6,9 +6,9 @@ public class Aluno implements Serializable {
 	private static final long serialVersionUID = -6477226813592732715L;
 	
 	private long id;
-	private String nome;
-	private String ra;
-	private String cidade;
+	private String nome = "";
+	private String ra = "";
+	private String cidade = "";
 	private boolean genero;
 	
 	public long getId() {

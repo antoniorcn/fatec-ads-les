@@ -42,6 +42,8 @@ public class AlunoController extends HttpServlet {
 			a.setGenero("masc".equals(request.getParameter("alunoGenero")));
 			try {
 				aDao.adicionar(a);
+				List<Aluno> lista = aDao.pesquisarPorNome("");
+				session.setAttribute("ALUNOS", lista);
 				msg = "Aluno adicionado com sucesso";
 			} catch (GenericDAOException e) {
 				e.printStackTrace();
@@ -78,7 +80,23 @@ public class AlunoController extends HttpServlet {
 				msg = "Erro ao carregar o aluno com id " + id;
 				e.printStackTrace();
 			}
-		}			
+		} else if ("salvar".equals(cmd)) {
+			String id  = request.getParameter("alunoId");
+			try {
+				Aluno a = new Aluno();
+				a.setNome(request.getParameter("alunoNome"));
+				a.setRa(request.getParameter("alunoRA"));
+				a.setCidade(request.getParameter("alunoCidade"));
+				a.setGenero("masc".equals(request.getParameter("alunoGenero")));
+				aDao.salvar( Long.parseLong(id), a);
+				msg = "Aluno com id " + id + " foi atualizado no banco de dados";
+				List<Aluno> lista = aDao.pesquisarPorNome("");
+				session.setAttribute("ALUNOS", lista);
+			} catch (NumberFormatException | GenericDAOException e) {
+				msg = "Erro ao atualizar o aluno com id " + id;
+				e.printStackTrace();
+			}
+		}				
 		session.setAttribute("MENSAGEM", msg);		
 		response.sendRedirect("./alunos.jsp");
 	}

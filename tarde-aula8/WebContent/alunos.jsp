@@ -17,6 +17,8 @@
 		Aluno alunoAtual = (Aluno) session.getAttribute("ALUNO_ATUAL");
 		if (alunoAtual == null) { 
 			alunoAtual = new Aluno();
+		} else {
+			session.setAttribute("ALUNO_ATUAL", null);
 		}
 		String msg = (String) session.getAttribute("MENSAGEM");
 		List<Aluno> alunos = (List<Aluno>) session.getAttribute("ALUNOS");
@@ -51,15 +53,19 @@
 			    </select>
 			</div>
 			<div class="form-check form-check-inline">
-			    <input class="form-check-input" type="radio" id="alunoMasculino" value="masc" name="alunoGenero">
+			    <input class="form-check-input" type="radio" <%=alunoAtual.isGenero() ? "checked" : ""%> id="alunoMasculino" value="masc" name="alunoGenero">
 			    <label class="form-check-label" for="alunoMasculino">Masculino</label>
 			</div>
 			<div class="form-check form-check-inline">
-			    <input class="form-check-input" type="radio" id="alunoFeminino" value="fem" name="alunoGenero">
+			    <input class="form-check-input" type="radio" <%=!alunoAtual.isGenero() ? "checked" : ""%> id="alunoFeminino" value="fem" name="alunoGenero">
 			    <label class="form-check-label" for="alunoFeminino">Feminino</label>
 			</div>	
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary" name="cmd" value="adicionar">Adicionar</button>
+				<%if (alunoAtual.getId() == 0) {%>
+					<button type="submit" class="btn btn-primary" name="cmd" value="adicionar">Adicionar</button>
+				<% } else { %>
+					<button type="submit" class="btn btn-primary" name="cmd" value="salvar">Salvar</button>
+				<% } %>
 				<button type="submit" class="btn btn-primary" name="cmd" value="pesquisar">Pesquisar</button>
 			</div>
 		</div>
@@ -117,6 +123,9 @@
 	<%}%>
 	
 	<script>
+
+		$("#alunoCidade").val("<%=alunoAtual.getCidade()%>");
+	
 		function remover( id ) {
 		      $("#tableForm").append('<input type="hidden" name="alunoId" value="' + id + '" />');
 		      $("#tableForm").append('<input type="hidden" name="cmd" value="remover" />');
