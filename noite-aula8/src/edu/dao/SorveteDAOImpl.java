@@ -78,4 +78,42 @@ public class SorveteDAOImpl implements SorveteDAO {
 		}
 	}
 
+	@Override
+	public Sorvete pesquisarPorId(long id) throws GenericDAOException {
+		Sorvete s = new Sorvete();
+		String sql = "SELECT * FROM sorvetes WHERE id = ?";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) { 
+				s.setId(rs.getLong("id"));
+				s.setSabor(rs.getString("sabor"));
+				s.setTipo(rs.getString("tipo"));
+				s.setCobertura(rs.getString("cobertura"));
+				s.setPreco(rs.getFloat("preco"));
+			}
+		} catch (SQLException e) {
+			throw new GenericDAOException( e );
+		}
+		return s;
+	}
+
+	@Override
+	public void salvar(long id, Sorvete s) throws GenericDAOException {
+		String sql = "UPDATE sorvetes SET sabor = ?, tipo = ?, cobertura = ?, preco = ? "
+				+ "WHERE id = ?";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, s.getSabor());
+			pstmt.setString(2, s.getTipo());
+			pstmt.setString(3, s.getCobertura());
+			pstmt.setFloat(4, s.getPreco());
+			pstmt.setLong(5, id);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new GenericDAOException( e );
+		}
+	}
+
 }

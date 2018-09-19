@@ -18,6 +18,13 @@
 				$('#formSorvete').submit();
 			}
 		}
+
+		function editar( id ) {
+			$('#formSorvete').empty();
+			$('#formSorvete').append('<input type="hidden" name="txtId" value="' + id + '"/>');
+			$('#formSorvete').append('<input type="hidden" name="cmd" value="editar"/>');
+			$('#formSorvete').submit();
+		}		
 	</script>
 </head>
 <body>
@@ -31,6 +38,13 @@
 		   session.setAttribute("LISTA", null);
 	   }
 	   
+	   Sorvete sorveteAtual = (Sorvete)session.getAttribute("SORVETE_ATUAL");
+	   if (sorveteAtual == null) { 
+		   sorveteAtual = new Sorvete();
+	   } else { 
+		   session.setAttribute("SORVETE_ATUAL", null);
+	   }
+	   
 	   if (msg != null) {
 		   session.setAttribute("MENSAGEM", null);
 	%>
@@ -42,15 +56,15 @@
 		<div class="container">
 			<div class="form-group">
     			<label for="txtId">Id</label>
-    			<input type="text" class="form-control" id="txtId" name="txtId" readonly/>
+    			<input type="text" class="form-control" id="txtId" name="txtId" value="<%=sorveteAtual.getId()%>" readonly/>
   			</div>
 			<div class="form-group">
     			<label for="txtSabor">Sabor</label>
-    			<input type="text" class="form-control" id="txtSabor" name="txtSabor"/>
+    			<input type="text" class="form-control" id="txtSabor" name="txtSabor" value="<%=sorveteAtual.getSabor()%>"/>
   			</div>  	
 			<div class="form-group">
     			<label for="txtPreco">Preço</label>
-    			<input type="text" class="form-control" id="txtPreco" name="txtPreco"/>
+    			<input type="text" class="form-control" id="txtPreco" name="txtPreco" value="<%=sorveteAtual.getPreco()%>"/>
   			</div>   	
 			<div class="form-group">
     			<label for="txtTipo">Tipo do Sorvete</label>
@@ -74,7 +88,11 @@
   				<label class="form-check-label" for="txtCobertura">Caramelo</label>
 			</div>	
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary" name="cmd" value="adicionar">Adicionar</button>
+				<%if (sorveteAtual.getId() == 0) { %>
+					<button type="submit" class="btn btn-primary" name="cmd" value="adicionar">Adicionar</button>
+				<%} else { %>
+					<button type="submit" class="btn btn-primary" name="cmd" value="salvar">Salvar</button>
+				<%} %>
 				<button type="submit" class="btn btn-primary" name="cmd" value="pesquisar">Pesquisar</button>
 			</div>																		
 		</div>

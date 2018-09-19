@@ -53,10 +53,27 @@ public class SorveteController extends HttpServlet {
 //						request.getParameter("txtSabor"));
 //				session.setAttribute("LISTA", lista);
 				msg = "Sorvete com o Id " + id + " foi removido";
-			}
+			} else if ("editar".equals(cmd)) {
+				String id = request.getParameter("txtId");
+				Sorvete s = sDao.pesquisarPorId(Long.parseLong(id));
+				session.setAttribute("SORVETE_ATUAL", s);
+//				List<Sorvete> lista = sDao.presquisarPorSabor(
+//						request.getParameter("txtSabor"));
+//				session.setAttribute("LISTA", lista);
+				msg = "Detalhes do Sorvete com o Id " + id;
+			} else if ("salvar".equals(cmd)) {
+				Sorvete s = new Sorvete();
+				String id = request.getParameter("txtId");
+				s.setSabor(request.getParameter("txtSabor"));
+				s.setPreco(Float.parseFloat(request.getParameter("txtPreco")));
+				s.setTipo(request.getParameter("txtTipo"));
+				s.setCobertura(request.getParameter("txtCobertura"));
+				sDao.salvar( Long.parseLong(id), s );
+				msg = "Sorvete foi atualizado com sucesso";
+			} 
 		} catch (GenericDAOException | NumberFormatException e) {
 			e.printStackTrace();
-			msg = "Erro ao adicionar este sorvete";
+			msg = "Erro ao acessar este sorvete";
 		}
 
 		session.setAttribute("MENSAGEM", msg);

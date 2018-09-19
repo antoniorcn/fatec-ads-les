@@ -6,10 +6,10 @@ public class Sorvete implements Serializable {
 	private static final long serialVersionUID = 6295997158682583939L;
 	
 	private long id;
-	private String sabor;
+	private String sabor = "";
 	private float preco;
-	private String tipo;
-	private String cobertura;
+	private String tipo = "";
+	private String cobertura = "";
 	
 	public long getId() {
 		return id;
