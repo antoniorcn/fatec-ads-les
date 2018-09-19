@@ -6,6 +6,7 @@
 <head>
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Gestão de alunos</title>
 </head>
@@ -58,7 +59,8 @@
 				<button type="submit" class="btn btn-primary" name="cmd" value="pesquisar">Pesquisar</button>
 			</div>
 		</div>
-		<%if (alunos != null && alunos.size() > 0) { %>
+	</form>
+	<%if (alunos != null && alunos.size() > 0) { %>
 <%-- 		<div class="container">
 			<table class="table table-striped">
 				<thead>
@@ -81,33 +83,41 @@
 				</tbody>
 			</table>
 		</div> --%>
-		
-		<div class="container">
-			<div class="row">
-				<div class="col col-lg-1">Id</div>
-				<div class="col col-lg-2">RA</div>
-				<div class="col col-lg-3">Nome</div>
-				<div class="col col-lg-2">Cidade</div>
-				<div class="col col-lg-1">Genero</div>
-				<div class="col col-lg-3">Ações</div>
-			</div>
-			<% for (Aluno a : alunos) { %>
-			<div class="row">
-				<div class="col col-lg-1"><%=a.getId()%></div>
-				<div class="col col-lg-2"><%=a.getRa()%></div>
-				<div class="col col-lg-3"><%=a.getNome()%></div>
-				<div class="col col-lg-2"><%=a.getCidade()%></div>
-				<div class="col col-lg-1"><%=a.isGenero() ? "Masculino" : "Feminino"%></div>
-				<div class="col col-lg-3">
-					<div class="form-group form-group-inline">
-						<button type="submit" class="btn btn-primary" name="cmd" value="atualizar">Atualizar</button>
-						<button type="submit" class="btn btn-primary" name="cmd" value="remover">Remover</button>
+		<form id="tableForm" action="./AlunoController" method="post">
+			<div class="container">
+				<div class="row">
+					<div class="col col-lg-1">Id</div>
+					<div class="col col-lg-2">RA</div>
+					<div class="col col-lg-3">Nome</div>
+					<div class="col col-lg-2">Cidade</div>
+					<div class="col col-lg-1">Genero</div>
+					<div class="col col-lg-3">Ações</div>
+				</div>
+				<% for (Aluno a : alunos) { %>
+				<div class="row">
+					<div class="col col-lg-1"><%=a.getId()%></div>
+					<div class="col col-lg-2"><%=a.getRa()%></div>
+					<div class="col col-lg-3"><%=a.getNome()%></div>
+					<div class="col col-lg-2"><%=a.getCidade()%></div>
+					<div class="col col-lg-1"><%=a.isGenero() ? "Masculino" : "Feminino"%></div>
+					<div class="col col-lg-3">
+						<div class="form-group form-group-inline">
+							<button type="button" class="btn btn-primary" name="cmd" value="atualizar" onclick="atualizar(<%=a.getId()%>);">Atualizar</button>
+							<button type="button" class="btn btn-primary" name="cmd" value="remover" onclick="remover(<%=a.getId()%>);">Remover</button>
+						</div>
 					</div>
 				</div>
+				<% } %>
 			</div>
-			<% } %>
-		</div>
-		<%}%>
-	</form>
+		</form>
+	<%}%>
+	
+	<script>
+		function remover( id ) {
+		      $("#tableForm").append('<input type="hidden" name="alunoId" value="' + id + '" />');
+		      $("#tableForm").append('<input type="hidden" name="cmd" value="remover" />');
+		      $("#tableForm").submit(); 
+		}
+	</script>
 </body>
 </html>

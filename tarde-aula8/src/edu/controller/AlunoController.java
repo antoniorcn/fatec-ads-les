@@ -56,9 +56,11 @@ public class AlunoController extends HttpServlet {
 							lista.size() + " alunos";
 			} catch (GenericDAOException e) {
 				e.printStackTrace();
-			}
-			
-		}
+			}	
+		} else if ("remover".equals(cmd)) {
+			String id  = request.getParameter("alunoId");
+			msg = "Aluno com id " + id + " foi removido";
+		}		
 		session.setAttribute("MENSAGEM", msg);		
 		response.sendRedirect("./alunos.jsp");
 	}
