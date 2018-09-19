@@ -59,8 +59,26 @@ public class AlunoController extends HttpServlet {
 			}	
 		} else if ("remover".equals(cmd)) {
 			String id  = request.getParameter("alunoId");
-			msg = "Aluno com id " + id + " foi removido";
-		}		
+			try {
+				aDao.remover( Long.parseLong(id) );
+				List<Aluno> lista = aDao.pesquisarPorNome("");
+				session.setAttribute("ALUNOS", lista);
+				msg = "Aluno com id " + id + " foi removido";
+			} catch (NumberFormatException | GenericDAOException e) {
+				msg = "Erro ao remover o aluno com id " + id;
+				e.printStackTrace();
+			}
+		} else if ("atualizar".equals(cmd)) {
+			String id  = request.getParameter("alunoId");
+			try {
+				Aluno a = aDao.pesquisarPorId( Long.parseLong(id) );
+				session.setAttribute("ALUNO_ATUAL", a);
+				msg = "Aluno com id " + id + " foi carregado";
+			} catch (NumberFormatException | GenericDAOException e) {
+				msg = "Erro ao carregar o aluno com id " + id;
+				e.printStackTrace();
+			}
+		}			
 		session.setAttribute("MENSAGEM", msg);		
 		response.sendRedirect("./alunos.jsp");
 	}

@@ -46,6 +46,18 @@ public class AlunoDAOImpl implements AlunoDAO {
 	}
 	
 	@Override
+	public void remover(long id) throws GenericDAOException { 
+		String sql = "DELETE FROM aluno WHERE id = ?";
+		try {
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setLong(1, id);
+			pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new GenericDAOException( e );
+		}
+	}	
+	
+	@Override
 	public List<Aluno> pesquisarPorNome(String nome) throws GenericDAOException { 
 		String sql = "SELECT * FROM aluno WHERE nome like ?";
 		List<Aluno> alunos = new ArrayList<>();
@@ -66,6 +78,27 @@ public class AlunoDAOImpl implements AlunoDAO {
 			throw new GenericDAOException( e );
 		}
 		return alunos;
+	}
+
+	@Override
+	public Aluno pesquisarPorId(long id) throws GenericDAOException {
+		String sql = "SELECT * FROM aluno WHERE id = ?";
+		Aluno a = new Aluno();
+		try {
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setLong(1, id);
+			ResultSet rs = pstm.executeQuery();
+			if(rs.next()) {
+				a.setId(rs.getLong("id"));
+				a.setRa(rs.getString("ra"));
+				a.setNome(rs.getString("nome"));
+				a.setCidade(rs.getString("cidade"));
+				a.setGenero(rs.getBoolean("genero"));
+			}
+		} catch (SQLException e) {
+				throw new GenericDAOException( e );
+		}
+		return a;
 	}
 
 }

@@ -14,6 +14,10 @@
 	<h1>Gestão de Alunos</h1>
 	
 	<%
+		Aluno alunoAtual = (Aluno) session.getAttribute("ALUNO_ATUAL");
+		if (alunoAtual == null) { 
+			alunoAtual = new Aluno();
+		}
 		String msg = (String) session.getAttribute("MENSAGEM");
 		List<Aluno> alunos = (List<Aluno>) session.getAttribute("ALUNOS");
 		if (msg != null) { 
@@ -25,15 +29,15 @@
 		<div class="container">
 			<div class="form-group">
 				<label for="alunoId">Id</label>
-			    <input type="text" class="form-control" id="alunoId" name="alunoId" readonly>
+			    <input type="text" class="form-control" id="alunoId" name="alunoId" value="<%=alunoAtual.getId()%>" readonly>
 			</div>
 			<div class="form-group">
 			    <label for="alunoNome">Nome</label>
-			    <input type="text" class="form-control" id="alunoNome" name="alunoNome">
+			    <input type="text" class="form-control" id="alunoNome" name="alunoNome" value="<%=alunoAtual.getNome()%>">
 			</div>
 			<div class="form-group">
 			    <label for="alunoRA">RA</label>
-			    <input type="text" class="form-control" id="alunoRA" name="alunoRA">
+			    <input type="text" class="form-control" id="alunoRA" name="alunoRA" value="<%=alunoAtual.getRa()%>">
 			</div>		  		  		  
 			<div class="form-group">
 			    <label for="alunoCidade">Cidade de Moradia</label>
@@ -118,6 +122,12 @@
 		      $("#tableForm").append('<input type="hidden" name="cmd" value="remover" />');
 		      $("#tableForm").submit(); 
 		}
+
+		function atualizar( id ) {
+		      $("#tableForm").append('<input type="hidden" name="alunoId" value="' + id + '" />');
+		      $("#tableForm").append('<input type="hidden" name="cmd" value="atualizar" />');
+		      $("#tableForm").submit(); 
+		}		
 	</script>
 </body>
 </html>
