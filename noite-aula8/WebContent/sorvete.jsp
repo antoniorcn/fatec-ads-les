@@ -58,6 +58,9 @@
     			<label for="txtId">Id</label>
     			<input type="text" class="form-control" id="txtId" name="txtId" value="<%=sorveteAtual.getId()%>" readonly/>
   			</div>
+  			<div class="form-group">
+  				<img src="<%=sorveteAtual.getImagem()%>" width="150" height="100" alt="Imagem do produto"/>
+  			</div>
 			<div class="form-group">
     			<label for="txtSabor">Sabor</label>
     			<input type="text" class="form-control" id="txtSabor" name="txtSabor" value="<%=sorveteAtual.getSabor()%>"/>
@@ -76,17 +79,21 @@
 				</select>
 			</div>
 			<div class="form-check form-check-inline">
-  				<input class="form-check-input" type="radio" name="txtCobertura" id="txtCobertura" value="choc">
+  				<input class="form-check-input" type="radio" name="txtCobertura" id="txtCobertura" value="choc" <%="choc".equals(sorveteAtual.getCobertura()) ? "checked" : ""%>/>
   				<label class="form-check-label" for="txtCobertura">Chocolate</label>
 			</div>				
 			<div class="form-check form-check-inline">
-  				<input class="form-check-input" type="radio" name="txtCobertura" id="txtCobertura" value="mor">
+  				<input class="form-check-input" type="radio" name="txtCobertura" id="txtCobertura" value="mor" <%="mor".equals(sorveteAtual.getCobertura()) ? "checked" : ""%>/>
   				<label class="form-check-label" for="txtCobertura">Morango</label>
 			</div>										
 			<div class="form-check form-check-inline">
-  				<input class="form-check-input" type="radio" name="txtCobertura" id="txtCobertura" value="car">
+  				<input class="form-check-input" type="radio" name="txtCobertura" id="txtCobertura" value="car" <%="car".equals(sorveteAtual.getCobertura()) ? "checked" : ""%>/>
   				<label class="form-check-label" for="txtCobertura">Caramelo</label>
 			</div>	
+			<div class="form-group">
+    			<label for="txtImagem">Imagem</label>
+    			<input type="text" class="form-control" id="txtImagem" name="txtImagem" value="<%=sorveteAtual.getImagem()%>"/>
+  			</div>   			
 			<div class="form-group">
 				<%if (sorveteAtual.getId() == 0) { %>
 					<button type="submit" class="btn btn-primary" name="cmd" value="adicionar">Adicionar</button>
@@ -96,8 +103,20 @@
 				<button type="submit" class="btn btn-primary" name="cmd" value="pesquisar">Pesquisar</button>
 			</div>																		
 		</div>
+		<%if (lista.size() > 0) {%>
 		<div class="container">
 			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Sabor</th>
+						<th>Tipo</th>
+						<th>Preco</th>
+						<th>Cobertura</th>
+						<th>Imagem</th>						
+						<th>Ação</th>
+					</tr>
+				</thead>
 				<tbody>
 					<% for (Sorvete s : lista) { %>
 					<tr>
@@ -106,6 +125,7 @@
 						<td><%=s.getTipo()%></td>
 						<td><%=s.getPreco()%></td>
 						<td><%=s.getCobertura()%></td>
+						<td><img src="<%=s.getImagem()%>" width="50" height="35" alt="Imagem do produto"/></td>
 						<td>
 							<div class="form-group">
 								<button type="button" class="btn btn-primary" onclick="remover(<%=s.getId()%>);">Remover</button>
@@ -117,6 +137,10 @@
 				</tbody>
 			</table>
 		</div>
+		<%} %>
 	</form>
+	<script>
+		$('#txtTipo').val("<%=sorveteAtual.getTipo()%>");
+	</script>
 </body>
 </html>

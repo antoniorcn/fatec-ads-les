@@ -28,8 +28,8 @@ public class SorveteDAOImpl implements SorveteDAO {
 
 	@Override
 	public void adicionar(Sorvete s) throws GenericDAOException {
-		String sql = "INSERT INTO sorvetes (id, sabor, tipo, cobertura, preco) "
-				+ "VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO sorvetes (id, sabor, tipo, cobertura, preco, imagem) "
+				+ "VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setLong(1, 0);
@@ -37,6 +37,7 @@ public class SorveteDAOImpl implements SorveteDAO {
 			pstmt.setString(3, s.getTipo());
 			pstmt.setString(4, s.getCobertura());
 			pstmt.setFloat(5, s.getPreco());
+			pstmt.setString(6, s.getImagem());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new GenericDAOException( e );
@@ -58,6 +59,7 @@ public class SorveteDAOImpl implements SorveteDAO {
 				s.setTipo(rs.getString("tipo"));
 				s.setCobertura(rs.getString("cobertura"));
 				s.setPreco(rs.getFloat("preco"));
+				s.setImagem(rs.getString("imagem"));
 				lista.add( s );
 			}
 		} catch (SQLException e) {
@@ -92,6 +94,7 @@ public class SorveteDAOImpl implements SorveteDAO {
 				s.setTipo(rs.getString("tipo"));
 				s.setCobertura(rs.getString("cobertura"));
 				s.setPreco(rs.getFloat("preco"));
+				s.setImagem(rs.getString("imagem"));
 			}
 		} catch (SQLException e) {
 			throw new GenericDAOException( e );
@@ -101,7 +104,7 @@ public class SorveteDAOImpl implements SorveteDAO {
 
 	@Override
 	public void salvar(long id, Sorvete s) throws GenericDAOException {
-		String sql = "UPDATE sorvetes SET sabor = ?, tipo = ?, cobertura = ?, preco = ? "
+		String sql = "UPDATE sorvetes SET sabor = ?, tipo = ?, cobertura = ?, preco = ?, imagem = ? "
 				+ "WHERE id = ?";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -109,7 +112,8 @@ public class SorveteDAOImpl implements SorveteDAO {
 			pstmt.setString(2, s.getTipo());
 			pstmt.setString(3, s.getCobertura());
 			pstmt.setFloat(4, s.getPreco());
-			pstmt.setLong(5, id);
+			pstmt.setString(5, s.getImagem());
+			pstmt.setLong(6, id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new GenericDAOException( e );

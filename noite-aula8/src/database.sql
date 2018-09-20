@@ -8,5 +8,6 @@ create table sorvetes (
 	sabor char(100),
 	tipo char(10),
 	cobertura char(15),
-	preco decimal(6, 2)
+	preco decimal(6, 2),
+	imagem varchar(255)
 );

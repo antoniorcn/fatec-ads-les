@@ -10,6 +10,7 @@ public class Sorvete implements Serializable {
 	private float preco;
 	private String tipo = "";
 	private String cobertura = "";
+	private String imagem = "";
 	
 	public long getId() {
 		return id;
@@ -44,6 +45,13 @@ public class Sorvete implements Serializable {
 	}
 	public void setCobertura(String cobertura) {
 		this.cobertura = cobertura;
+	}
+	
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 	
 	@Override

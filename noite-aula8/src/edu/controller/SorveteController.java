@@ -39,7 +39,10 @@ public class SorveteController extends HttpServlet {
 				s.setPreco(Float.parseFloat(request.getParameter("txtPreco")));
 				s.setTipo(request.getParameter("txtTipo"));
 				s.setCobertura(request.getParameter("txtCobertura"));
+				s.setImagem(request.getParameter("txtImagem"));
 				sDao.adicionar( s );
+				List<Sorvete> lista = sDao.presquisarPorSabor("");
+				session.setAttribute("LISTA", lista);
 				msg = "Sorvete foi adicionado com sucesso";
 			} else if ("pesquisar".equals(cmd)) {
 				List<Sorvete> lista = sDao.presquisarPorSabor(
@@ -49,17 +52,13 @@ public class SorveteController extends HttpServlet {
 			} else if ("remover".equals(cmd)) {
 				String id = request.getParameter("txtId");
 				sDao.remover(Long.parseLong(id));
-//				List<Sorvete> lista = sDao.presquisarPorSabor(
-//						request.getParameter("txtSabor"));
-//				session.setAttribute("LISTA", lista);
 				msg = "Sorvete com o Id " + id + " foi removido";
+				List<Sorvete> lista = sDao.presquisarPorSabor("");
+				session.setAttribute("LISTA", lista);				
 			} else if ("editar".equals(cmd)) {
 				String id = request.getParameter("txtId");
 				Sorvete s = sDao.pesquisarPorId(Long.parseLong(id));
 				session.setAttribute("SORVETE_ATUAL", s);
-//				List<Sorvete> lista = sDao.presquisarPorSabor(
-//						request.getParameter("txtSabor"));
-//				session.setAttribute("LISTA", lista);
 				msg = "Detalhes do Sorvete com o Id " + id;
 			} else if ("salvar".equals(cmd)) {
 				Sorvete s = new Sorvete();
@@ -68,7 +67,10 @@ public class SorveteController extends HttpServlet {
 				s.setPreco(Float.parseFloat(request.getParameter("txtPreco")));
 				s.setTipo(request.getParameter("txtTipo"));
 				s.setCobertura(request.getParameter("txtCobertura"));
+				s.setImagem(request.getParameter("txtImagem"));
 				sDao.salvar( Long.parseLong(id), s );
+				List<Sorvete> lista = sDao.presquisarPorSabor("");
+				session.setAttribute("LISTA", lista);				
 				msg = "Sorvete foi atualizado com sucesso";
 			} 
 		} catch (GenericDAOException | NumberFormatException e) {
