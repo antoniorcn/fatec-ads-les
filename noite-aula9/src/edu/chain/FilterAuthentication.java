@@ -20,7 +20,7 @@ import edu.entidade.UserInfo;
  * Servlet Filter implementation class FilterAuthentication
  */
 @WebFilter(dispatcherTypes = {DispatcherType.REQUEST }
-					, urlPatterns = { "/*" })
+					, urlPatterns = { "/jsp/*", "/admin.jsp" })
 public class FilterAuthentication implements Filter {
     public FilterAuthentication() {
     }
@@ -43,17 +43,13 @@ public class FilterAuthentication implements Filter {
 		} else if (user != null && user.isLogado()) { 
 			chain.doFilter(request, response);
 		} else { 
-			res.sendRedirect("./login.jsp");
+			res.sendRedirect("../login.jsp");
 		}
 		
 		
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }
