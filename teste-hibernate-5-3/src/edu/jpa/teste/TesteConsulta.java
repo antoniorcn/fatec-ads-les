@@ -22,7 +22,7 @@ public class TesteConsulta {
 //
 		
 		TypedQuery<SalaAula> qry = 
-		  em.createQuery("select s from SalaAula s", SalaAula.class);
+		  em.createQuery("select s from SalaAula s join s.alunos a", SalaAula.class);
 		
 		List<SalaAula> salas = qry.getResultList();
 		
