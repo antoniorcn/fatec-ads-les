@@ -6,9 +6,9 @@
       <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57InnoDBDialect"/>	
       <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/alunos"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:53867/alunos?createDatabaseIfNotExist=true"/>
+      <property name="javax.persistence.jdbc.user" value="azure"/>
+      <property name="javax.persistence.jdbc.password" value="6#vWHD_$"/>
     </properties>
   </persistence-unit>
 </persistence>
