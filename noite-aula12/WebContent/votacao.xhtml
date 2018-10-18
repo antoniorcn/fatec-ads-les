@@ -17,12 +17,19 @@
 		<div class="container">
 			<div class="form-group">
 				<h:outputLabel value="Qual a sua linguagem preferida"/>
-				<h:inputText styleClass="form-control"/>
+				<h:inputText value="#{votacaoMB.linguagem}" styleClass="form-control"/>
 			</div>
 			<h:commandButton value="Votar" 
+							action="#{votacaoMB.votar}"
 							styleClass="btn btn-primary"/>
 			<h:commandButton value="Cancelar" 
 							styleClass="btn btn-default"/>
+		</div>
+		<div class="container">
+			<h:dataTable value="#{votacaoMB.votos}" var="v">
+				<h:column>#{v.linguagem}</h:column>
+				<h:column>#{v.votos}</h:column>
+			</h:dataTable>
 		</div>
 	</h:form>
 </body>
