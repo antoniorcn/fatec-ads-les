@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.enterprise.context.RequestScoped;
 
-@Named
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+@ApplicationScoped
 public class VotacaoMB {
 	
 	private  Map<String, Integer> votacoes = new HashMap<>();
