@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+	<h:outputScript library="js" name="bootstrap.min.js"/>
+	<h:outputScript library="js" name="jquery-3.3.1.min.js"/>
+	<meta http-equiv="Content-Type" 
+	      content="text/html; charset=ISO-8859-1" />
+	<title>Votação</title>
+</h:head>
+<body>
+	<h2>Votação de linguagens</h2>
+	<h:form>
+		<div class="container">
+			<div class="form-group">
+				<h:outputLabel value="Qual a sua linguagem preferida"/>
+				<h:inputText styleClass="form-control"/>
+			</div>
+			<h:commandButton value="Votar" 
+							styleClass="btn btn-primary"/>
+			<h:commandButton value="Cancelar" 
+							styleClass="btn btn-default"/>
+		</div>
+	</h:form>
+</body>
+</html>
