@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<h:body>
+	<h:form>
+		<table>
+			<tr>
+				<td>Id:</td>
+				<td><h:outputText value="#{petBean.petAtual.id}"/></td>
+			</tr>
+			<tr>
+				<td>Nome:</td>
+				<td><h:inputText value="#{petBean.petAtual.nome}"/></td>
+			</tr>
+			<tr>
+				<td>Nascimento:</td>
+				<td>
+					<h:inputText value="#{petBean.petAtual.nascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:inputText>
+				</td>
+			</tr>
+			<tr>
+				<td>Peso:</td>
+				<td><h:inputText value="#{petBean.petAtual.peso}"/></td>
+			</tr>
+			<tr>
+				<td><h:commandButton value="Adicionar" action="#{petBean.adicionar}"/></td>
+				<td><h:commandButton value="Pesquisar" action="#{petBean.pesquisar}"/></td>
+			</tr>												
+		</table>
+		
+		<h:dataTable value="#{petBean.petsEncontrados}" var="p" border="2">
+			<h:column>#{p.id}</h:column>
+			<h:column>#{p.nome}</h:column>
+			<h:column>
+				<h:outputText value="#{p.nascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+				</h:outputText>
+			</h:column>
+			<h:column>#{p.peso}</h:column>
+		</h:dataTable>
+	</h:form> 
+</h:body> 
+</html>
