@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="jquery-3.3.1.min.js" />
+	<title>Votação</title>
+</h:head>
+<h:body>
+	<h2>Página de votação de linguagem</h2>
+	<h:form>
+		<div class="container">
+			<div class="form-group">
+				<h:outputLabel value="Qual sua linguagem preferida ?"/>
+				<!-- <h:inputText styleClass="form-control" value="#{votacaoMB.linguagem}"/> -->
+				<h:selectOneMenu styleClass="form-control" value="#{votacaoMB.linguagem}">
+					<f:selectItem itemValue="Java"/>
+					<f:selectItem itemValue="CPP" itemLabel="C++"/>
+					<f:selectItem itemValue="C"/>
+					<f:selectItem itemValue="Python"/>
+					<f:selectItem itemValue="Ruby"/>
+					<f:selectItem itemValue="Javascript"/>
+					<f:selectItem itemValue="Kotlin"/>
+				</h:selectOneMenu>
+			</div>
+			<h:commandButton styleClass="btn btn-primary" value="Votar" action="#{votacaoMB.vote}"/>
+			<h:commandButton styleClass="btn btn-default" value="Cancelar"/>
+		</div>
+		
+		<div class="container">
+			<h:dataTable value="#{votacaoMB.votacoes}" var="v"
+				styleClass="table table-striped">
+				<h:column>
+					<f:facet name="header">Linguagem</f:facet>
+					<h:outputText value="#{v.key}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Votos</f:facet>
+					<h:outputText value="#{v.value}"/>
+				</h:column>
+			</h:dataTable>
+		</div>
+	</h:form>
+</h:body>
+</html>
