@@ -15,12 +15,17 @@
 			</tr>
 			<tr>
 				<td>Nome:</td>
-				<td><h:inputText value="#{petBean.petAtual.nome}"/></td>
+				<td>
+					<h:inputText id="txtNome" value="#{petBean.petAtual.nome}"/>
+					<h:message for="txtNome" showSummary="true" showDetail="false" tooltip="true"/>
+				</td>
 			</tr>
 			<tr>
 				<td>Nascimento:</td>
 				<td>
-					<h:inputText value="#{petBean.petAtual.nascimento}" id="txtNascimento">
+					<h:inputText value="#{petBean.petAtual.nascimento}" 
+								 id="txtNascimento"
+								 validator="#{petBean.validaDataNascimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
 					</h:inputText>
 					<h:message for="txtNascimento" showSummary="true" showDetail="false" tooltip="true"/>
@@ -28,7 +33,13 @@
 			</tr>
 			<tr>
 				<td>Peso:</td>
-				<td><h:inputText value="#{petBean.petAtual.peso}"/></td>
+				<td>
+					<h:inputText value="#{petBean.petAtual.peso}" id="txtPeso">
+							<!-- validatorMessage="Por favor informe um peso entre 0.1 e 50 kilos">
+						<f:validateDoubleRange minimum="0.1" maximum="50.0"/> -->
+					</h:inputText>
+					<h:message for="txtPeso" showSummary="true" showDetail="false"/>
+				</td>
 			</tr>
 			<tr>
 				<td><h:commandButton value="Adicionar" action="#{petBean.adicionar}"/></td>

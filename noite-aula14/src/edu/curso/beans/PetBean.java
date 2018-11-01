@@ -8,7 +8,9 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import edu.curso.entity.Pet;
 
@@ -24,25 +26,28 @@ public class PetBean {
 		petAtual.setNascimento(new Date());
 	}
 	
-	public String adicionar() { 
-		getPets().add(petAtual);		
-		
+	public void validaDataNascimento(FacesContext ctx, UIComponent ui, Object obj) { 
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -7);
+		Date d = (Date)obj;
 		
-		if (cal.getTimeInMillis() < petAtual.getNascimento().getTime()) { 
+		if (cal.getTimeInMillis() < d.getTime()) { 
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
 						"Data de nascimento incorreta", 
 						"A data de nascimento deve ser inferior a 1 semana atrás");
-			FacesContext.getCurrentInstance().addMessage("form1:txtNascimento", msg);
-		} else { 
-			String msgTexto = String.format("Foram cadastrados %d animais \n", getPets().size());
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
-						"Animal " + petAtual.getNome() + " foi cadastrado com sucesso", 
-						msgTexto);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			petAtual = new Pet();
+			throw new ValidatorException(msg);
 		}
+	}
+	
+	public String adicionar() { 
+		getPets().add(petAtual);		
+		
+		String msgTexto = String.format("Foram cadastrados %d animais \n", getPets().size());
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+					"Animal " + petAtual.getNome() + " foi cadastrado com sucesso", 
+					msgTexto);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		petAtual = new Pet();
 		return "";
 	}
 	
