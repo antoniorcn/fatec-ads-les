@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<h:body> 
+	<h:messages globalOnly="true" showSummary="true" showDetail="false" tooltip="true"/>
+	<h:form id="form">
+		<table>
+			<tr>
+				<td>ID:</td>
+				<td><h:outputText value="#{petsBean.animal.id}"/></td>
+			</tr>
+			<tr>
+				<td>Nome:</td>
+				<td>
+					<h:inputText id="txtNome" value="#{petsBean.animal.nome}"/>
+					<h:message showSummary="true" showDetail="false" tooltip="true" for="txtNome"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Nascimento:</td>
+				<td>
+					<h:inputText id="txtNascimento" value="#{petsBean.animal.nascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:inputText>
+					<h:message showSummary="true" showDetail="false" tooltip="true" for="txtNascimento"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Peso:</td>
+				<td>
+					<h:inputText id="txtPeso" value="#{petsBean.animal.peso}"/>
+					<h:message showSummary="true" showDetail="false" tooltip="true" for="txtPeso"/>
+				</td>
+			</tr>
+			<tr>
+				<td><h:commandButton value="Adicionar" 
+							action="#{petsBean.adicionar}"/></td>
+				<td><h:commandButton value="Pesquisar" 
+							action="#{petsBean.pesquisar}" immediate="true"/></td>
+			</tr>
+		</table>
+		
+		<h:dataTable value="#{petsBean.animaisPesquisados}" var="a" border="2">
+			<h:column>#{a.id}</h:column>
+			<h:column>#{a.nome}</h:column>
+			<h:column>
+				<h:outputText value="#{a.nascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</h:column>
+			<h:column>#{a.peso}</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body> 
+</html>
